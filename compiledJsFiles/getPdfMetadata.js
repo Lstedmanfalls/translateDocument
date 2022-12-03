@@ -13,7 +13,7 @@ exports.getPdfMetadata = void 0;
 function getPdfMetadata() {
     return __awaiter(this, void 0, void 0, function* () {
         const pdfUtil = require('pdf-to-text');
-        const pdf_path = "/Users/lisastedmanfalls/Desktop/translate_node_project/dhl-handbuch-funktion-retoure-v7-122019.pdf";
+        const pdf_path = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
         const data = pdfUtil.info(pdf_path, function (err, results) {
             if (err)
                 throw (err);
