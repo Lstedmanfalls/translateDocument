@@ -1,15 +1,20 @@
+import { resourceLimits } from "worker_threads";
 import PdfMetadata from "./pdfMetadata";
 
-export async function getPdfMetadata() {
-        const pdfUtil = require('pdf-to-text');
-        const pdf_path = "/Users/lisastedmanfalls/Desktop/translate_node_project/dhl-handbuch-funktion-retoure-v7-122019.pdf";
-        const data = pdfUtil.info(
-            pdf_path, 
-            function(err: any, results: PdfMetadata) {
-                if (err) throw(err);
-                console.log(results);
-                return results;
-        });
-        console.log(`not here ${data}`)
-        return await data;
-    };
+function getPdfMetadata() {
+  return new Promise((resolve, reject) => {
+    const pdfUtil = require('pdf-to-text');
+    const pdf_path = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
+
+    const results = pdfUtil.info(pdf_path, (err: any, results: PdfMetadata) => {
+      if (err) reject(err)
+      resolve(results)
+    });
+    return results;
+  });
+}
+
+export async function metadata() {
+    const results = await getPdfMetadata();
+    return results;
+}

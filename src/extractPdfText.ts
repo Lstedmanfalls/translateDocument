@@ -1,4 +1,8 @@
-import { getPdfMetadata } from "./getPdfMetadata";
+import { metadata } from "./getPdfMetadata";
 
-const data = getPdfMetadata();
-console.log(data);
+async function retrieveResults() { 
+    const data = await metadata();
+    console.log(data);
+}
+
+retrieveResults();
