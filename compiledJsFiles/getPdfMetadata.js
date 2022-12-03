@@ -9,20 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPdfMetadata = void 0;
+exports.metadata = void 0;
 function getPdfMetadata() {
-    return __awaiter(this, void 0, void 0, function* () {
+    return new Promise((resolve, reject) => {
         const pdfUtil = require('pdf-to-text');
         const pdf_path = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
-        const data = pdfUtil.info(pdf_path, function (err, results) {
+        const results = pdfUtil.info(pdf_path, (err, results) => {
             if (err)
-                throw (err);
-            console.log(results);
-            return results;
+                reject(err);
+            resolve(results);
         });
-        console.log(`not here ${data}`);
-        return yield data;
+        return results;
     });
 }
-exports.getPdfMetadata = getPdfMetadata;
-;
+function metadata() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const results = yield getPdfMetadata();
+        return results;
+    });
+}
+exports.metadata = metadata;
