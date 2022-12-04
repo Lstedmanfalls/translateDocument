@@ -1,6 +1,9 @@
 import { getPdfPagesCount } from "./getPdfPagesCount";
 import { capitalizeFirstLetter } from "./helperFunctions";
 const pdfLib = require('pdf-to-text');
+// figure out how to deal with this import vs require thing
+// tried modifying tsconfig.json target and module to es2022 and moduleResolution uncomment
+// ^ but didn't work, kept saying module couldn't be found, etc.
 
 async function getPagesRange(pageFrom?: number, pageTo?: number) {
     const pagesCount = await getPdfPagesCount();
