@@ -10,10 +10,10 @@ const pdfPath = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
 // const pdfPath = "2f";
 
 // Getting the metadata out of the pdfUtil callback function and returning the # of pages
-function getPdfMetadata(pdf_path:string, pdfUtil:any):Promise<PdfMetadata | undefined> {
+
+function getPdfMetadata(pdfPath:string, pdfUtil:any):Promise<PdfMetadata | undefined> {
   return new Promise((resolve) => {
-    
-    const metadata:PdfMetadata = pdfUtil.info(pdf_path, (err: string, results: PdfMetadata) => {
+    const metadata:PdfMetadata = pdfUtil.info(pdfPath, (err: string, results: PdfMetadata) => {
       if (err) {
         console.log(capitalizeFirstLetter(err))
       }

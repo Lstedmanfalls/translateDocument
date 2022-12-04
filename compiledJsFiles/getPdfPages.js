@@ -13,13 +13,13 @@ exports.getPages = void 0;
 const helperFunctions_1 = require("./helperFunctions");
 const pdfLib = (0, helperFunctions_1.pdfUtil)();
 // Placeholder until there's a front-end where this param can be input
-// const pdfPath = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
+const pdfPath = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
 // Bad file error test
-const pdfPath = "2f";
+// const pdfPath = "2f";
 // Getting the metadata out of the pdfUtil callback function and returning the # of pages
-function getPdfMetadata(pdf_path, pdfUtil) {
+function getPdfMetadata(pdfPath, pdfUtil) {
     return new Promise((resolve) => {
-        const metadata = pdfUtil.info(pdf_path, (err, results) => {
+        const metadata = pdfUtil.info(pdfPath, (err, results) => {
             if (err) {
                 console.log((0, helperFunctions_1.capitalizeFirstLetter)(err));
             }
