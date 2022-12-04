@@ -9,36 +9,55 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const getPdfPages_1 = require("./getPdfPages");
-const pagesCheck = () => __awaiter(void 0, void 0, void 0, function* () {
-    const pagesResults = yield (0, getPdfPages_1.getPages)();
-    try {
-        pagesResults;
-        return pagesResults;
+exports.pdfText = void 0;
+const getPdfPagesCount_1 = require("./getPdfPagesCount");
+const helperFunctions_1 = require("./helperFunctions");
+function getPagesRange(pageFrom, pageTo) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const pagesCount = yield (0, getPdfPagesCount_1.getPdfPagesCount)();
+        // console.log("***** pages count = " + pagesCount)
+        const inputFrom = pageFrom !== undefined ? pageFrom : 1;
+        const from = inputFrom < 1 ? inputFrom : 1;
+        const inputTo = pageTo !== undefined ? pageTo : pagesCount;
+        const to = inputTo < pagesCount ? inputTo : pagesCount;
+        // console.log("**** Pages to get: " + from + "-" + to)
+        return { from: from, to: to };
+    });
+}
+function getPdfText(pdfLib, pdfFilePath, pagesRange) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return new Promise((resolve, reject) => {
+            const pdfText = pdfLib.pdfToText(pdfFilePath, pagesRange, (err, pdfText) => {
+                if (err) {
+                    console.log((0, helperFunctions_1.capitalizeFirstLetter)(err));
+                    reject("Error extracting text from .pdf");
+                }
+                resolve(pdfText);
+            });
+            return pdfText;
+        });
+    });
+}
+const pdfText = () => __awaiter(void 0, void 0, void 0, function* () {
+    const lib = (0, helperFunctions_1.pdfLib)();
+    // Placeholder until there's a front-end where this param can be input
+    const pdfFilePath = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
+    // Placeholder until there's a front-end where these params can be input
+    const inputPageFrom = 1;
+    const inputPageTo = 2;
+    const pagesRange = yield getPagesRange(inputPageFrom, inputPageTo);
+    const text = yield getPdfText(lib, pdfFilePath, pagesRange);
+    // Snip the text if it's over translation limit (3900 chars)
+    let textToTranslate = text;
+    const textLength = text.length;
+    if (textLength > 2000) {
+        textToTranslate = text.substring(0, 2000);
     }
-    catch (_a) {
-        const err = ("File could not be read");
-        throw new Error(err);
-    }
+    // Translation doesn't work properly if words are all uppercase
+    textToTranslate = textToTranslate.toLowerCase();
+    console.log(textToTranslate.length);
+    console.log(textToTranslate);
+    return textToTranslate;
 });
-const gotPages = () => __awaiter(void 0, void 0, void 0, function* () {
-    const pages = yield pagesCheck();
-    if (pages) {
-        console.log("Obtained file metadata");
-        console.log(pages);
-    }
-});
-gotPages();
-// var pdfUtil = require('pdf-to-text');
-// var pdf_path = "absolute_path/to/pdf_file.pdf";
-// //option to extract text from page 0 to 10
-// var option = {from: 0, to: 10};
-// pdfUtil.pdfToText(upload.path, option, function(err, data) {
-//   if (err) throw(err);
-//   console.log(data); //print text    
-// });
-// //Omit option to extract all text from the pdf file
-// pdfUtil.pdfToText(upload.path, function(err, data) {
-//   if (err) throw(err);
-//   console.log(data); //print all text    
-// });
+exports.pdfText = pdfText;
+(0, exports.pdfText)();

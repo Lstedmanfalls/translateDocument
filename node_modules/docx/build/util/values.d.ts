@@ -1,0 +1,17 @@
+export declare const decimalNumber: (val: number) => number;
+export declare const unsignedDecimalNumber: (val: number) => number;
+export declare const longHexNumber: (val: string) => string;
+export declare const shortHexNumber: (val: string) => string;
+export declare const uCharHexNumber: (val: string) => string;
+export declare const universalMeasureValue: (val: string) => string;
+export declare const positiveUniversalMeasureValue: (val: string) => string;
+export declare const hexColorValue: (val: string) => string;
+export declare const signedTwipsMeasureValue: (val: string | number) => string | number;
+export declare const hpsMeasureValue: (val: string | number) => string | number;
+export declare const signedHpsMeasureValue: (val: string | number) => string | number;
+export declare const twipsMeasureValue: (val: string | number) => string | number;
+export declare const percentageValue: (val: string) => string;
+export declare const measurementOrPercentValue: (val: number | string) => number | string;
+export declare const eighthPointMeasureValue: (val: number) => number;
+export declare const pointMeasureValue: (val: number) => number;
+export declare const dateTimeValue: (val: Date) => string;
