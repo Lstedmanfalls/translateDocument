@@ -6,7 +6,7 @@ const pdfLib = require('pdf-to-text');
 const pdfFilePath = "../dhl-handbuch-funktion-retoure-v7-122019.pdf"
 
 // Bad file error test
-// const pdfPath = "2f";
+// const pdfFilePath = "2f";
 
 // Getting the metadata out of the callback function
 function getPdfMetadata(pdfLib: any, pdfFilePath: string): Promise<PdfMetadata> {
@@ -14,7 +14,7 @@ function getPdfMetadata(pdfLib: any, pdfFilePath: string): Promise<PdfMetadata> 
     const metadata:PdfMetadata = pdfLib.info(pdfFilePath, (err: string, results: PdfMetadata) => {
       if (err) {
         console.log(capitalizeFirstLetter(err))
-        reject("File could not be found")
+        reject(capitalizeFirstLetter(err))
       }
       resolve(results)
     });

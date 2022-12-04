@@ -21,7 +21,7 @@ async function getPdfText(pdfLib: any, pdfFilePath: string, pagesRange: {from: n
         const pdfText: string = pdfLib.pdfToText(pdfFilePath, pagesRange, (err: string, pdfText: string) => {
         if (err) {
             console.log(capitalizeFirstLetter(err))
-            reject("Error extracting text from .pdf")
+            reject(capitalizeFirstLetter(err))
         }
         resolve(pdfText)
         });
@@ -33,6 +33,9 @@ export const pdfText = async() => {
 
     // Placeholder until there's a front-end where this param can be input
     const pdfFilePath = "../dhl-handbuch-funktion-retoure-v7-122019.pdf"
+
+    // Bad file error test
+    // const pdfFilePath = "2f";
 
     // Placeholder until there's a front-end where these params can be input
     const inputPageFrom: number = 1
