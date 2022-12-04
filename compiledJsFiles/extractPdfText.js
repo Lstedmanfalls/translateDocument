@@ -9,16 +9,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const getPdfMetadata_1 = require("./getPdfMetadata");
-function retrieveResults() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const pdfMetadata = yield (0, getPdfMetadata_1.metadata)();
-        if (!pdfMetadata) {
-            console.log("File could not be read");
-            return 400;
-        }
+const getPdfPages_1 = require("./getPdfPages");
+const pagesCheck = () => __awaiter(void 0, void 0, void 0, function* () {
+    const pagesResults = yield (0, getPdfPages_1.getPages)();
+    try {
+        pagesResults;
+        return pagesResults;
+    }
+    catch (_a) {
+        const err = ("File could not be read");
+        throw new Error(err);
+    }
+});
+const gotPages = () => __awaiter(void 0, void 0, void 0, function* () {
+    const pages = yield pagesCheck();
+    if (pages) {
         console.log("Obtained file metadata");
-        return pdfMetadata;
-    });
-}
-const results = retrieveResults();
+        console.log(pages);
+    }
+});
+gotPages();
+// var pdfUtil = require('pdf-to-text');
+// var pdf_path = "absolute_path/to/pdf_file.pdf";
+// //option to extract text from page 0 to 10
+// var option = {from: 0, to: 10};
+// pdfUtil.pdfToText(upload.path, option, function(err, data) {
+//   if (err) throw(err);
+//   console.log(data); //print text    
+// });
+// //Omit option to extract all text from the pdf file
+// pdfUtil.pdfToText(upload.path, function(err, data) {
+//   if (err) throw(err);
+//   console.log(data); //print all text    
+// });

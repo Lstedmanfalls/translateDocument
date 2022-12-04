@@ -8,31 +8,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.metadata = void 0;
-const helperFunctions_1 = __importDefault(require("./helperFunctions"));
+exports.getPages = void 0;
+const helperFunctions_1 = require("./helperFunctions");
+const pdfLib = (0, helperFunctions_1.pdfUtil)();
 // Placeholder until there's a front-end where this param can be input
-const pdf_path = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
-// Getting the data out of the pdfUtil callback function
-function getPdfMetadata(pdf_path) {
+// const pdfPath = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
+// Bad file error test
+const pdfPath = "2f";
+// Getting the metadata out of the pdfUtil callback function and returning the # of pages
+function getPdfMetadata(pdf_path, pdfUtil) {
     return new Promise((resolve) => {
-        const pdfUtil = require('pdf-to-text');
-        const results = pdfUtil.info(pdf_path, (err, results) => {
+        const metadata = pdfUtil.info(pdf_path, (err, results) => {
             if (err) {
-                console.log((0, helperFunctions_1.default)(err));
+                console.log((0, helperFunctions_1.capitalizeFirstLetter)(err));
             }
             resolve(results);
         });
-        return results;
+        return metadata;
     });
 }
-function metadata() {
+function getPages() {
     return __awaiter(this, void 0, void 0, function* () {
-        let results = yield getPdfMetadata(pdf_path);
-        return results;
+        const metadata = yield getPdfMetadata(pdfPath, pdfLib);
+        const pages = metadata === null || metadata === void 0 ? void 0 : metadata.pages;
+        return pages;
     });
 }
-exports.metadata = metadata;
+exports.getPages = getPages;

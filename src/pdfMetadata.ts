@@ -19,5 +19,5 @@ export default interface PdfMetadata {
     artbox: string,
     file_size: string,
     optimized: string,
-    pdf_version: number 
+    pdf_version: number, 
 }
