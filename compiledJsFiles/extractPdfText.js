@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.pdfText = void 0;
 const getPdfPagesCount_1 = require("./getPdfPagesCount");
 const helperFunctions_1 = require("./helperFunctions");
+const pdfLib = require('pdf-to-text');
 function getPagesRange(pageFrom, pageTo) {
     return __awaiter(this, void 0, void 0, function* () {
         const pagesCount = yield (0, getPdfPagesCount_1.getPdfPagesCount)();
@@ -39,14 +40,13 @@ function getPdfText(pdfLib, pdfFilePath, pagesRange) {
     });
 }
 const pdfText = () => __awaiter(void 0, void 0, void 0, function* () {
-    const lib = (0, helperFunctions_1.pdfLib)();
     // Placeholder until there's a front-end where this param can be input
     const pdfFilePath = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
     // Placeholder until there's a front-end where these params can be input
     const inputPageFrom = 1;
-    const inputPageTo = 2;
+    const inputPageTo = 3;
     const pagesRange = yield getPagesRange(inputPageFrom, inputPageTo);
-    const text = yield getPdfText(lib, pdfFilePath, pagesRange);
+    const text = yield getPdfText(pdfLib, pdfFilePath, pagesRange);
     // Snip the text if it's over translation limit (3900 chars)
     let textToTranslate = text;
     const textLength = text.length;
@@ -55,7 +55,6 @@ const pdfText = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     // Translation doesn't work properly if words are all uppercase
     textToTranslate = textToTranslate.toLowerCase();
-    console.log(textToTranslate.length);
     console.log(textToTranslate);
     return textToTranslate;
 });

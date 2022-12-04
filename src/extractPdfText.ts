@@ -1,5 +1,6 @@
 import { getPdfPagesCount } from "./getPdfPagesCount";
-import { capitalizeFirstLetter, pdfLib } from "./helperFunctions";
+import { capitalizeFirstLetter } from "./helperFunctions";
+const pdfLib = require('pdf-to-text');
 
 async function getPagesRange(pageFrom?: number, pageTo?: number) {
     const pagesCount = await getPdfPagesCount();
@@ -15,9 +16,9 @@ async function getPagesRange(pageFrom?: number, pageTo?: number) {
     return {from: from, to: to}
 }
 
-async function getPdfText(pdfLib:any, pdfFilePath:string, pagesRange: {from: number, to: number}):Promise<string> {
+async function getPdfText(pdfLib: any, pdfFilePath: string, pagesRange: {from: number, to: number}): Promise<string> {
     return new Promise((resolve, reject) => {
-        const pdfText:string = pdfLib.pdfToText(pdfFilePath, pagesRange, (err: string, pdfText: string) => {
+        const pdfText: string = pdfLib.pdfToText(pdfFilePath, pagesRange, (err: string, pdfText: string) => {
         if (err) {
             console.log(capitalizeFirstLetter(err))
             reject("Error extracting text from .pdf")
@@ -30,17 +31,15 @@ async function getPdfText(pdfLib:any, pdfFilePath:string, pagesRange: {from: num
 
 export const pdfText = async() => {
 
-    const lib = pdfLib()
-
     // Placeholder until there's a front-end where this param can be input
     const pdfFilePath = "../dhl-handbuch-funktion-retoure-v7-122019.pdf"
 
     // Placeholder until there's a front-end where these params can be input
     const inputPageFrom: number = 1
-    const inputPageTo: number = 2
+    const inputPageTo: number = 3
 
     const pagesRange = await getPagesRange(inputPageFrom, inputPageTo);
-    const text = await getPdfText(lib, pdfFilePath, pagesRange);
+    const text = await getPdfText(pdfLib, pdfFilePath, pagesRange);
 
     // Snip the text if it's over translation limit (3900 chars)
     let textToTranslate: string = text
@@ -51,7 +50,6 @@ export const pdfText = async() => {
     
     // Translation doesn't work properly if words are all uppercase
     textToTranslate = textToTranslate.toLowerCase()
-    console.log(textToTranslate.length)
     console.log(textToTranslate)
     return textToTranslate;
 }

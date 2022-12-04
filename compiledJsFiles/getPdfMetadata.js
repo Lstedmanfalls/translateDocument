@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.pdfMetadata = void 0;
 const helperFunctions_1 = require("./helperFunctions");
-const lib = (0, helperFunctions_1.pdfLib)();
+const pdfLib = require('pdf-to-text');
 // Placeholder until there's a front-end where this param can be input
 const pdfFilePath = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
 // Bad file error test
@@ -30,7 +30,7 @@ function getPdfMetadata(pdfLib, pdfFilePath) {
     });
 }
 const pdfMetadata = () => __awaiter(void 0, void 0, void 0, function* () {
-    const metadata = yield getPdfMetadata(lib, pdfFilePath);
+    const metadata = yield getPdfMetadata(pdfLib, pdfFilePath);
     return metadata;
 });
 exports.pdfMetadata = pdfMetadata;
