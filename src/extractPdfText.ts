@@ -1,8 +1,14 @@
 import { metadata } from "./getPdfMetadata";
+import PdfMetadata from "./pdfMetadata";
 
-async function retrieveResults() { 
-    const data = await metadata();
-    console.log(data);
+async function retrieveResults():Promise<PdfMetadata | number> { 
+    const pdfMetadata = await metadata();
+    if (!pdfMetadata){
+        console.log("File could not be read")
+        return 400;
+    }
+    console.log("Obtained file metadata")
+    return pdfMetadata;
 }
 
-retrieveResults();
+const results = retrieveResults();

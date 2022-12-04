@@ -12,8 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const getPdfMetadata_1 = require("./getPdfMetadata");
 function retrieveResults() {
     return __awaiter(this, void 0, void 0, function* () {
-        const data = yield (0, getPdfMetadata_1.metadata)();
-        console.log(data);
+        const pdfMetadata = yield (0, getPdfMetadata_1.metadata)();
+        if (!pdfMetadata) {
+            console.log("File could not be read");
+            return 400;
+        }
+        console.log("Obtained file metadata");
+        return pdfMetadata;
     });
 }
-retrieveResults();
+const results = retrieveResults();

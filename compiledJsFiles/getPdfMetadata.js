@@ -8,15 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.metadata = void 0;
-function getPdfMetadata() {
-    return new Promise((resolve, reject) => {
+const helperFunctions_1 = __importDefault(require("./helperFunctions"));
+// Placeholder until there's a front-end where this param can be input
+const pdf_path = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
+// Getting the data out of the pdfUtil callback function
+function getPdfMetadata(pdf_path) {
+    return new Promise((resolve) => {
         const pdfUtil = require('pdf-to-text');
-        const pdf_path = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
         const results = pdfUtil.info(pdf_path, (err, results) => {
-            if (err)
-                reject(err);
+            if (err) {
+                console.log((0, helperFunctions_1.default)(err));
+            }
             resolve(results);
         });
         return results;
@@ -24,7 +31,7 @@ function getPdfMetadata() {
 }
 function metadata() {
     return __awaiter(this, void 0, void 0, function* () {
-        const results = yield getPdfMetadata();
+        let results = yield getPdfMetadata(pdf_path);
         return results;
     });
 }
