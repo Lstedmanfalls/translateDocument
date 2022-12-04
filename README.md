@@ -6,7 +6,7 @@ To translate the manual into English, he was manually copying and pasting blocks
 
 This app allows a user to upload a .pdf or text file written in another language and to download a Word document version of it translated into English (via Google's Translation API).
 
-# Project Progress Timeline:
+# Progress Timeline:
 
 12/3/22 - Day 1
 
