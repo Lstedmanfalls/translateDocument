@@ -5,7 +5,7 @@ const pdfLib = require('pdf-to-text');
 // tried modifying tsconfig.json target and module to es2022 and moduleResolution uncomment
 // ^ but didn't work, kept saying module couldn't be found, etc.
 
-// Get the user's desired pages ranges range to translate, or pick all pages if not selected
+// Get the user's desired pages range to translate, with a few validity checks
 async function getPagesRange(pageFrom?: number, pageTo?: number) {
     const pagesCount = await getPdfPagesCount();
 
@@ -45,7 +45,7 @@ export const pdfText = async() => {
     const inputPageTo: number = 3
 
     const pagesRange = await getPagesRange(inputPageFrom, inputPageTo);
-    const text = await getPdfText(pdfLib, pdfFilePath, pagesRange);
+    const rawText = await getPdfText(pdfLib, pdfFilePath, pagesRange);
 
-    return text;
+    return rawText;
 }
