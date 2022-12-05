@@ -47,27 +47,5 @@ export const pdfText = async() => {
     const pagesRange = await getPagesRange(inputPageFrom, inputPageTo);
     const text = await getPdfText(pdfLib, pdfFilePath, pagesRange);
 
-    // ***************************************************************************
-    // This code will move to a new transformText file
-
-    let textToTranslate: string = text
-    
-    // Translation doesn't work properly if words are all uppercase
-    textToTranslate = text.toLowerCase()
-
-    // ***************************************************************************
-    // This code will move to a new translateText file
-
-    // Snip the text if it's over translation limit (limit is 3900 chars, 2000 suggested)
-    const textLength = text.length
-    if (textLength > 2000) {
-        textToTranslate = text.substring(0, 2000)
-    }
-
-    // ^^^ Need to add to / modify this logic when calling translate API to call again x times for remaining text over 2000, and then combine all translated text when translation calls done
-    
-    console.log(textToTranslate)
-    return textToTranslate;
+    return text;
 }
-
-pdfText();
