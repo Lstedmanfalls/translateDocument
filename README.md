@@ -10,10 +10,10 @@ This app allows a user to upload a .pdf or text file written in another language
 
 12/3/22 - Day 1
 
-- Started bulding app backend in typeScript
-- Using [pdf-to-text](https://www.npmjs.com/package/pdf-to-text) library to extract .pdf metadata, including document page count
+-  Started bulding app backend in typeScript
+-  Using [pdf-to-text](https://www.npmjs.com/package/pdf-to-text) library to extract .pdf metadata, including document page count
 
 12/4/22 - Extract text from .pdf
 
-- Added functionality to extract text from the .pdf based on page range input
-- Tested text character limits and fomatting via Google Translate web input
+-  Added functionality to extract text from the .pdf based on page range input
+-  Tested text character limits and fomatting via Google Translate web input
