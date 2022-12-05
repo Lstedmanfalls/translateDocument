@@ -5,6 +5,7 @@ import { pdfText } from "./extractPdfText"
 export const transformText = async() => {
     const rawPdfText = await pdfText();
 
+    // "let" for now - aniticipating other transformations needed
     let transformedPdfText: string = rawPdfText
     
     // Translation doesn't work properly if words are all uppercase
