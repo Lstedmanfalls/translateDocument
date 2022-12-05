@@ -1,4 +1,4 @@
-export default interface PdfMetadata {
+export interface PdfMetadata {
    title: string;
    subject: string;
    keywords: string;
@@ -20,4 +20,9 @@ export default interface PdfMetadata {
    file_size: string;
    optimized: string;
    pdf_version: number;
+}
+
+export interface PdfLib {
+   info: (...args: unknown[]) => PdfMetadata;
+   pdfToText: (...args: unknown[]) => string;
 }

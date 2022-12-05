@@ -1,31 +1,30 @@
 import { getPdfPagesCount } from "./getPdfPagesCount";
 import { capitalizeFirstLetter } from "./helperFunctions";
-const pdfLib = require("pdf-to-text");
-// figure out how to deal with this import vs require thing
-// tried modifying tsconfig.json target and module to es2022 and moduleResolution uncomment
-// ^ but didn't work, kept saying module couldn't be found, etc.
+import { join } from "path";
+//@ts-expect-error no type declarations for this module
+import pdfLib from "pdf-to-text";
+import { PdfLib } from "./types";
 
 // Get the user's desired pages range to translate, with a few validity checks
-const getPagesRange = async (pageFrom?: number, pageTo?: number) => {
+const getPagesRange = async (pageFrom = 1, pageTo?: number) => {
    const pagesCount = await getPdfPagesCount();
 
-   const inputFrom: number = pageFrom !== undefined ? pageFrom : 1;
-   const from: number = inputFrom! < 1 ? inputFrom : 1;
+   const from: number = pageFrom < 1 ? 1 : pageFrom;
 
-   const inputTo: number = pageTo !== undefined ? pageTo : pagesCount;
-   const to: number = inputTo! < pagesCount ? inputTo : pagesCount;
+   const inputTo = pageTo ?? pagesCount;
+   const to: number = inputTo < pagesCount ? inputTo : pagesCount;
 
-   return { from: from, to: to };
+   return { from, to };
 };
 
 // Extract the text from the .pdf
-const getPdfText = async (
-   pdfLib: any,
+const getPdfText = (
+   pdfLib: PdfLib,
    pdfFilePath: string,
    pagesRange: { from: number; to: number }
 ): Promise<string> => {
    return new Promise((resolve, reject) => {
-      const pdfText: string = pdfLib.pdfToText(
+      pdfLib.pdfToText(
          pdfFilePath,
          pagesRange,
          (err: string, pdfText: string) => {
@@ -36,20 +35,22 @@ const getPdfText = async (
             resolve(pdfText);
          }
       );
-      return pdfText;
    });
 };
 
 export const pdfText = async () => {
    // Placeholder until there's a front-end where this param can be input
-   const pdfFilePath = "../dhl-handbuch-funktion-retoure-v7-122019.pdf";
+   const pdfFilePath = join(
+      "..",
+      "/dhl-handbuch-funktion-retoure-v7-122019.pdf"
+   );
 
    // Bad file error test
    // const pdfFilePath = "2f";
 
    // Placeholder until there's a front-end where these params can be input
-   const inputPageFrom: number = 1;
-   const inputPageTo: number = 3;
+   const inputPageFrom = 1;
+   const inputPageTo = 3;
 
    const pagesRange = await getPagesRange(inputPageFrom, inputPageTo);
    const rawText = await getPdfText(pdfLib, pdfFilePath, pagesRange);
