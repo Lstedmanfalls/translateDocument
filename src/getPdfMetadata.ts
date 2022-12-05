@@ -9,7 +9,7 @@ const pdfFilePath = "../dhl-handbuch-funktion-retoure-v7-122019.pdf"
 // const pdfFilePath = "2f";
 
 // Getting the .pdf metadata out of the callback function
-function getPdfMetadata(pdfLib: any, pdfFilePath: string): Promise<PdfMetadata> {
+const getPdfMetadata = async(pdfLib: any, pdfFilePath: string): Promise<PdfMetadata> => {
   return new Promise((resolve, reject) => {
     const metadata:PdfMetadata = pdfLib.info(pdfFilePath, (err: string, results: PdfMetadata) => {
       if (err) {

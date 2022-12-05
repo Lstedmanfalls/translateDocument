@@ -6,7 +6,7 @@ const pdfLib = require('pdf-to-text');
 // ^ but didn't work, kept saying module couldn't be found, etc.
 
 // Get the user's desired pages range to translate, with a few validity checks
-async function getPagesRange(pageFrom?: number, pageTo?: number) {
+const getPagesRange = async(pageFrom?: number, pageTo?: number) => {
     const pagesCount = await getPdfPagesCount();
 
     const inputFrom: number = pageFrom !== undefined ? pageFrom : 1;
@@ -19,7 +19,7 @@ async function getPagesRange(pageFrom?: number, pageTo?: number) {
 }
 
 // Extract the text from the .pdf
-async function getPdfText(pdfLib: any, pdfFilePath: string, pagesRange: {from: number, to: number}): Promise<string> {
+const getPdfText = async(pdfLib: any, pdfFilePath: string, pagesRange: {from: number, to: number}): Promise<string> => {
     return new Promise((resolve, reject) => {
         const pdfText: string = pdfLib.pdfToText(pdfFilePath, pagesRange, (err: string, pdfText: string) => {
         if (err) {
