@@ -1,9 +1,9 @@
-import PdfMetadata from "./pdfMetadata";
-import { capitalizeFirstLetter } from "./helperFunctions";
+import PdfMetadata from './pdfMetadata';
+import { capitalizeFirstLetter } from './helperFunctions';
 const pdfLib = require('pdf-to-text');
 
 // Placeholder until there's a front-end where this param can be input
-const pdfFilePath = "../dhl-handbuch-funktion-retoure-v7-122019.pdf"
+const pdfFilePath = '../dhl-handbuch-funktion-retoure-v7-122019.pdf'
 
 // Bad file error test
 // const pdfFilePath = "2f";
@@ -23,6 +23,6 @@ const getPdfMetadata = async(pdfLib: any, pdfFilePath: string): Promise<PdfMetad
 }
 
 export const pdfMetadata = async() => { 
-    const metadata = await getPdfMetadata(pdfLib, pdfFilePath);
-    return metadata;
+  const metadata = await getPdfMetadata(pdfLib, pdfFilePath);
+  return metadata;
 }

@@ -1,5 +1,5 @@
-import PdfMetadata from "./pdfMetadata";
-import { pdfMetadata } from "./getPdfMetadata";
+import PdfMetadata from './pdfMetadata';
+import { pdfMetadata } from './getPdfMetadata';
 
 // Getting the .pdf total pages count
 export const getPdfPagesCount = async(): Promise<number> => {  

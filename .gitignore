@@ -36,6 +36,3 @@ Thumbs.db
 
 # Ignore built ts files
 compiledJSFiles/**/*
-
-# ignore yarn.lock
-yarn.lock
