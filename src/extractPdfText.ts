@@ -1,4 +1,4 @@
-import { getPdfPagesCount } from "./getPdfPagesCount";
+import { getPdfPagesCount } from './getPdfPagesCount';
 import { capitalizeFirstLetter } from './helperFunctions';
 const pdfLib = require('pdf-to-text');
 
