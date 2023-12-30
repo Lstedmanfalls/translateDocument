@@ -12,7 +12,8 @@
     "husky": "^8.0.0"
   },
   "scripts": {
-    "lint": "npx eslint --fix .",
+    "lint": "npx eslint .",
+    "lint-fix": "npx eslint --fix .",
     "prepare": "husky install"
   }
 }
