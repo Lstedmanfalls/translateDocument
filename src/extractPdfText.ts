@@ -1,52 +1,52 @@
-import PdfMetadata from './types/pdfMetadata';
-const pdfLib = require('pdf-to-text');
+import * as pdfjsLib from 'pdfjs-dist';
 
-// Placeholder until there's a front-end pulling this info can be input
-const pdfFilePath = './dhl-handbuch-funktion-retoure-v7-122019.pdf';
-const start = 1;
-const end = 3;
+export const extractPdfText = async () => {
+  const pdfFilePath = './dhl-handbuch-funktion-retoure-v7-122019.pdf';
 
-const getPdfMetadata = async (pdfFilePath: string): Promise<PdfMetadata> => {
-  return new Promise((resolve) => {
-    const metadata: PdfMetadata = pdfLib.info(pdfFilePath, (err: string, results: PdfMetadata) => {
-      if (err) {
-        console.log(err);
-        throw new Error(err);
+  const loadingTask = pdfjsLib.getDocument(pdfFilePath);
+
+  loadingTask.promise
+    .then(function (doc) {
+      const numPages = doc.numPages;
+      console.log('Number of Pages: ' + numPages);
+
+      let lastPromise;
+      lastPromise = doc.getMetadata().then(function (data) {
+        console.log('## Info');
+        console.log(JSON.stringify(data.info, null, 2));
+        console.log();
+      });
+
+      const loadPage = function (pageNum: number) {
+        return doc.getPage(pageNum).then(function (page) {
+          console.log();
+          console.log('# Page ' + pageNum);
+          console.log();
+          return page
+            .getTextContent()
+            .then(function (content) {
+              const strings = content.items.map(function (item) {
+                if ('str' in item) {
+                  return item.str;
+                }
+              });
+              console.log(strings.join(' '));
+              page.cleanup();
+            });
+        });
+      };
+      for (let i = 1; i <= numPages; i++) {
+        lastPromise = lastPromise.then(loadPage.bind(null, i));
       }
-      resolve(results);
-    });
-    return metadata;
-  });
-};
-
-const getPdfPagesCount = async (): Promise<number> => {
-  const metadata = await getPdfMetadata(pdfFilePath);
-  const pageCount = metadata.pages;
-  return pageCount;
-};
-
-const getSelectedPages = async (start = 1, endPage?: number) => {
-  const pdfPagesCount = await getPdfPagesCount();
-  const end = endPage ? endPage : pdfPagesCount;
-  return { start, end };
-};
-
-// Extract the text from the .pdf
-const getPdfText = async (pdfFilePath: string, selectedPages: { start: number, end: number }): Promise<string> => {
-  return new Promise((resolve) => {
-    const pdfText: string = pdfLib.pdfToText(pdfFilePath, selectedPages, (err: string, pdfText: string) => {
-      if (err) {
-        console.log(err);
-        throw new Error(err);
-      }
-      resolve(pdfText);
-    });
-    return pdfText;
-  });
-};
-
-export const pdfText = async () => {
-  const pages = await getSelectedPages(start, end);
-  const rawText = await getPdfText(pdfFilePath, pages);
-  return rawText;
+      return lastPromise;
+    })
+    .then(
+      function () {
+        console.log();
+        console.log('# End of Document');
+      },
+      function (err) {
+        console.error('Error: ' + err);
+      },
+    );
 };
