@@ -7,7 +7,7 @@ To translate the manual into English, he was manually copying and pasting blocks
 This app allows a user to upload a .pdf or text file written in another language and to download a Word document version of it translated into English (via Google's Translation API).
 
 # To run:
-- Run `npm i ` to install the needed dependencies
+- Run `npm i` to install the needed dependencies
 - Run `npx tsx transformText.ts` to run the main typescript file locally
 
 ** The text-to-pdf library is now broken and needs to be replaced with another pdf extraction library
