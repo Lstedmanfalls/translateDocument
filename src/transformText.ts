@@ -1,12 +1,13 @@
-// // Any text data transformations that need to occur prior to translation
-// export const transformText = async () => {
-//   const rawPdfText = await pdfText();
-//   let transformedPdfText = rawPdfText;
-//   // Translation doesn't work properly if words are all uppercase
-//   transformedPdfText = rawPdfText.toLowerCase();
-//   console.log(transformedPdfText);
-//   return transformedPdfText;
+import { PdfPageText } from './types/pdfPageData';
 
-import { extractPdfText } from './extractPdfText';
-const transformText = extractPdfText;
-transformText();
+// Here do any text data transformations that need to occur prior to translation
+
+export const transformText = (rawTextPages: PdfPageText[]): PdfPageText[] => {
+  // Translation doesn't work properly if words are all uppercase, so am lowercasing everything for now
+  const lowercasedTextPages = rawTextPages.map((page) => {
+    const pageText = page.pageText.toLowerCase();
+    const pageNumber = page.pageNumber;
+    return { pageNumber, pageText };
+  });
+  return lowercasedTextPages;
+};

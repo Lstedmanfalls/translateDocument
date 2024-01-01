@@ -9,4 +9,4 @@ This app allows a user to upload a .pdf or text file written in another language
 # To run:
 - Run `npm i` to install the needed dependencies
 - Go to source `cd src`
-- Run `npx tsx transformText.ts` to run the main typescript file locally
+- Run `npx tsx translateText.ts` to run the main typescript file locally

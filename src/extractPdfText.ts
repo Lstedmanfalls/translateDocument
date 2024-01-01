@@ -1,52 +1,40 @@
-import * as pdfjsLib from 'pdfjs-dist';
+import * as pdfjsDist from 'pdfjs-dist';
+import { PdfPage, PdfPageText } from './types/pdfPageData';
 
-export const extractPdfText = async () => {
+const getPdf = (): Promise<pdfjsDist.PDFDocumentProxy> => {
   const pdfFilePath = './dhl-handbuch-funktion-retoure-v7-122019.pdf';
+  const pdf = pdfjsDist.getDocument({ url: pdfFilePath, useSystemFonts: true }).promise;
+  return pdf;
+};
 
-  const loadingTask = pdfjsLib.getDocument(pdfFilePath);
+const getSelectedPages = async (pdf: pdfjsDist.PDFDocumentProxy, start: number, end: number): Promise<PdfPage[]> => {
+  const pages = [];
+  for (let pageNumber = start; pageNumber <= end; pageNumber++) {
+    const page = await pdf.getPage(pageNumber);
+    pages.push({ pageNumber, page });
+  }
+  return pages;
+};
 
-  loadingTask.promise
-    .then(function (doc) {
-      const numPages = doc.numPages;
-      console.log('Number of Pages: ' + numPages);
-
-      let lastPromise;
-      lastPromise = doc.getMetadata().then(function (data) {
-        console.log('## Info');
-        console.log(JSON.stringify(data.info, null, 2));
-        console.log();
-      });
-
-      const loadPage = function (pageNum: number) {
-        return doc.getPage(pageNum).then(function (page) {
-          console.log();
-          console.log('# Page ' + pageNum);
-          console.log();
-          return page
-            .getTextContent()
-            .then(function (content) {
-              const strings = content.items.map(function (item) {
-                if ('str' in item) {
-                  return item.str;
-                }
-              });
-              console.log(strings.join(' '));
-              page.cleanup();
-            });
-        });
-      };
-      for (let i = 1; i <= numPages; i++) {
-        lastPromise = lastPromise.then(loadPage.bind(null, i));
+const getPagesText = async (pages: { pageNumber: number, page: pdfjsDist.PDFPageProxy }[]): Promise<PdfPageText[]> => {
+  const pagesText = pages.map(async (pageObject) => {
+    const pageNumber = pageObject.pageNumber;
+    let pageText = '';
+    const items = (await pageObject.page.getTextContent()).items;
+    items.forEach((item) => {
+      if ('str' in item) {
+        pageText += item.str;
       }
-      return lastPromise;
-    })
-    .then(
-      function () {
-        console.log();
-        console.log('# End of Document');
-      },
-      function (err) {
-        console.error('Error: ' + err);
-      },
-    );
+    });
+    return { pageNumber, pageText };
+  });
+  return Promise.all(pagesText);
+};
+
+export const extractPdfText = async (start: number = 1, end?: number): Promise<PdfPageText[]> => {
+  const pdf = await getPdf();
+  const endPage = end ? end : pdf.numPages;
+  const pages = await getSelectedPages(pdf, start, endPage);
+  const pagesText = await getPagesText(pages);
+  return pagesText;
 };
