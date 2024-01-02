@@ -11,7 +11,7 @@ This app allows a user to upload a .pdf or text file written in another language
 # Running Locally:
 
 1. Create a Google Cloud project linked to a service account that has access to Cloud Translation API
-- (See https://cloud.google.com/translate/docs/setup for more info)
+- See https://cloud.google.com/translate/docs/setup for more info
 2. Set PROJECT_ID env variable in .env file
 - `PROJECT_ID={project_id}`
 3. Set auth env variable in console to point to locally stored service account pem. Will need to set for each new terminal session.
