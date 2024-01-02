@@ -7,6 +7,13 @@ To translate the manual into English, he was manually copying and pasting blocks
 This app allows a user to upload a .pdf or text file written in another language and to download a Word document version of it translated into English (via Google's Translation API).
 
 # To run:
-- Run `npm i` to install the needed dependencies
-- Go to source `cd src`
-- Run `npx tsx translateText.ts` to run the main typescript file locally
+- Create a Google Cloud project linked to a service account that has access to Cloud Translation API 
+    (See https://cloud.google.com/translate/docs/setup for more info)
+- Set PROJECT_ID env variable in .env file
+    `PROJECT_ID={project_id}`
+- Set auth env variable in console to point to locally stored service account pem. Will need to set for each new terminal session. 
+    `export GOOGLE_APPLICATION_CREDENTIALS="{path_to_key}`
+- Install this project's dependencies
+    `npm i`
+- Run the main typescript file locally
+    `npx tsx src/translateText.ts`

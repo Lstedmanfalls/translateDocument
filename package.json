@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@google-cloud/translate": "^8.0.2",
     "docx": "^7.8.2",
     "pdfjs-dist": "^4.0.379"
   },
