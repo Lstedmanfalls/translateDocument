@@ -3,7 +3,7 @@ import { Document, Packer, PageBreak, Paragraph, TextRun } from 'docx';
 import { getTranslation } from './translateText';
 import WordDocPage from './types/wordDocPage';
 
-const buildPage = (text: string) => {
+const buildPage = (text: string): WordDocPage => {
   const section = {
     properties: {},
     children: [
@@ -37,7 +37,7 @@ export const exportWordDoc = async (
 ): Promise<void> => {
   // Pdf file is stored at root dir for now
   // Provide start, or start and end, to get specific pages
-  // Pass nothing to get entire document
+  // Pass nothing after file path to translate whole document
   const translatedText = await getTranslation('./dhl-handbuch-funktion-retoure-v7-122019.pdf', 1, 1);
 
   const wordDocPages = translatedText.map((textPage) => {

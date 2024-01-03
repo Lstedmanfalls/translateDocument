@@ -1,4 +1,5 @@
+import { Paragraph } from 'docx';
 export default interface WordDocPage {
-  properties: Record<any, any>
-  children: any[]
+  properties: Record<string, never>
+  children: Paragraph[]
 }
