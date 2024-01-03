@@ -40,3 +40,5 @@ export const extractPdfText = async (filepath: string, start: number, end?: numb
   await pdf.cleanup();
   return pagesText;
 };
+
+extractPdfText('./dhl-handbuch-funktion-retoure-v7-122019.pdf', 1, 2);

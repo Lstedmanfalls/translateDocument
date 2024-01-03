@@ -18,10 +18,10 @@ This app allows a user to upload a .pdf or text file written in another language
 - `export GOOGLE_APPLICATION_CREDENTIALS="{path_to_key}"`
 4. Install this project's dependencies
 - `npm i`
-5. Run the main typescript file locally
-- `npx tsx src/translateText.ts`
+5. Run the entrypoint typescript file locally
+- `npx tsx src/exportWordDoc.ts`
 
 # TO DO Still:
 - Integraete a db to store the pdfs and translations so I can work with them without having to make new API calls (i.e., prevent GCP charges)
-- Add a frontend with ability to upload a pdf, display the translated pages, and download a word doc version of it
+- Add a frontend with ability to upload a pdf, display the translated pages, and download the exported word doc translation
 - Add unit tests
