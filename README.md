@@ -22,7 +22,7 @@ This app allows a user to upload a .pdf or text file written in another language
 - `npx tsx src/exportWordDoc.ts`
 
 # TO DO Still:
-- Integraete a db to store the pdfs and translations so I can work with them without having to make new API calls (i.e., prevent GCP charges)
-- Add ability to translate a word document as well as pdf
+- Integrate a db to store the pdfs and translations so I can work with them without having to make new API calls (i.e., prevent GCP charges)
+- Add ability to translate from a word document as well as pdf
 - Add a frontend with ability to upload a document, display the translated pages, and download the exported word doc translation
 - Add unit tests
