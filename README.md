@@ -6,7 +6,7 @@ To translate the manual into English, he was manually copying and pasting blocks
 
 # Functionality:
 
-This app allows a user to upload a .pdf or text file written in another language and to download a Word document version of it translated into English (via Google's Translation API).
+This app will allow a user to upload a document written in one language and download a translated version of it in another language
 
 # Running Locally:
 
