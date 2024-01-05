@@ -18,8 +18,8 @@ This app will allow a user to upload a document written in one language and down
 - `export GOOGLE_APPLICATION_CREDENTIALS="{path_to_key}"`
 4. Install this project's dependencies
 - `npm i`
-5. Run the entrypoint typescript file locally
-- `npx tsx src/exportWordDoc.ts`
+5. Run the express server locally
+- `npx tsx app.ts`
 
 # TO DO Still:
 - Integrate a db to store the pdfs and translations so I can work with them without having to make new API calls (i.e., prevent GCP charges)
