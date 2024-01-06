@@ -1,14 +1,11 @@
 import fileupload from 'express-fileupload';
-import fs from 'fs';
+import { getPath } from './helpers/getPath';
 
 export const uploadFile = (file: fileupload.UploadedFile): { uploadFileName: string } => {
-  if (!fs.existsSync('tmp/uploaded')) {
-    fs.mkdirSync('tmp/uploaded');
-  }
   const date = Date.now();
   const fileNameSplitExt = file.name.split('.');
   const uploadFileName = `${fileNameSplitExt[0]}_${date}.${fileNameSplitExt[1]}`;
-  const uploadPath = `tmp/uploaded/${uploadFileName}`;
+  const uploadPath = getPath('uploaded', uploadFileName);
   file.mv(uploadPath, function (e) {
     if (e) {
       return new Error(e);

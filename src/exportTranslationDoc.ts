@@ -1,5 +1,7 @@
+import { getPath } from './helpers/getPath';
+
 export const exportTranslationDoc = () => {
-  const root = 'tmp/translated';
+  const root = getPath('translated');
   const options = {
     root,
   };

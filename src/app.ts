@@ -3,7 +3,8 @@ import fileupload from 'express-fileupload';
 import { uploadFile } from './uploadFile';
 import { createTranslatedDocument } from './createTranslatedDocument';
 import { exportTranslationDoc } from './exportTranslationDoc';
-import { clearTmpFile } from './clearTmpFile';
+import { clearTmpFile } from './helpers/clearTmpFile';
+import { getPath } from './helpers/getPath';
 
 const app = express();
 const port = 3000;
@@ -32,7 +33,8 @@ app.post('/translate', async (req, res) => {
   const start = req.body?.start;
   const end = req.body?.end;
   try {
-    return res.send(await createTranslatedDocument(uploadFileName, start, end));
+    res.send(await createTranslatedDocument(uploadFileName, start, end));
+    return clearTmpFile(getPath('uploaded', uploadFileName));
   }
   catch (e) {
     return res.status(500).send(e);
@@ -50,7 +52,7 @@ app.get('/download/:translationFileName', (req, res) => {
       if (e) {
         throw new Error (`${e}`);
       }
-      clearTmpFile(`${options.root}/${translationFileName}`);
+      clearTmpFile(getPath('translated', translationFileName));
     });
   } catch (e) {
     return res.status(500).send(e);
