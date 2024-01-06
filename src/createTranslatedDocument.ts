@@ -32,9 +32,9 @@ const createWordDoc = (sections: WordDocPage[], fileName: string): { translation
   return { translationFileName };
 };
 
-export const createTranslatedDocument = async (uploadFileName: string, start = 1, end?: number): Promise<{ translationFileName: string }> => {
+export const createTranslatedDocument = async (uploadFileName: string, targetLang: string, start = 1, end?: number): Promise<{ translationFileName: string }> => {
   const uploadFilePath = getPath('uploaded', uploadFileName);
-  const translatedText = await getTranslation(uploadFilePath, start, end);
+  const translatedText = await getTranslation(uploadFilePath, targetLang, start, end);
   const wordDocPages = translatedText.map((textPage) => {
     const page = buildPage(textPage.translation);
     return page;

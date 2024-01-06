@@ -3,7 +3,7 @@ import fs from 'fs';
 export const getPath = (dir: string, fileName?: string): string => {
   const allowedDirs = ['uploaded', 'translated'];
   if (!allowedDirs.includes(dir)) {
-    throw new Error ('Error: Incorrect dir type');
+    throw new Error ('Error: Incorrect dir name');
   }
 
   if (!fs.existsSync('tmp')) {

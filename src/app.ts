@@ -30,10 +30,15 @@ app.post('/translate', async (req, res) => {
   if (!uploadFileName) {
     return res.status(400).send('Error: No uploadFileName specified');
   }
+  const targetLang = req.body?.targetLang;
+  if (!targetLang) {
+    return res.status(400).send('Error: No targetLang specified');
+  }
+
   const start = req.body?.start;
   const end = req.body?.end;
   try {
-    res.send(await createTranslatedDocument(uploadFileName, start, end));
+    res.send(await createTranslatedDocument(uploadFileName, targetLang, start, end));
     return clearTmpFile(getPath('uploaded', uploadFileName));
   }
   catch (e) {
