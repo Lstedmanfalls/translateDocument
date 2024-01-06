@@ -18,8 +18,8 @@ const translateText = async (textPages: PdfPageText[]): Promise<{ pageNumber: nu
   return Promise.all(translatedText);
 };
 
-export const getTranslation = async (filepath: string, start: number = 1, end?: number): Promise<TranslatedText[]> => {
-  const rawText = await extractPdfText(filepath, start, end);
+export const getTranslation = async (filePath: string, start: number = 1, end?: number): Promise<TranslatedText[]> => {
+  const rawText = await extractPdfText(filePath, start, end);
   const transformedText = transformText(rawText);
   const translatedText = await translateText(transformedText);
   return translatedText;

@@ -31,8 +31,8 @@ const getPagesText = async (pages: { pageNumber: number, page: pdfjsDist.PDFPage
   return Promise.all(pagesText);
 };
 
-export const extractPdfText = async (filepath: string, start: number, end?: number): Promise<PdfPageText[]> => {
-  const pdf = await getPdf(filepath);
+export const extractPdfText = async (filePath: string, start: number, end?: number): Promise<PdfPageText[]> => {
+  const pdf = await getPdf(filePath);
   const endPage = end ?? pdf.numPages;
   const pages = await getPages(pdf, start, endPage);
   const pagesText = await getPagesText(pages);
