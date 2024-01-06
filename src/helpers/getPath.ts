@@ -6,6 +6,10 @@ export const getPath = (dir: string, fileName?: string): string => {
     throw new Error ('Error: Incorrect dir type');
   }
 
+  if (!fs.existsSync('tmp')) {
+    fs.mkdirSync('tmp');
+  }
+
   const root = `tmp/${dir}`;
   if (!fs.existsSync(root)) {
     fs.mkdirSync(root);
