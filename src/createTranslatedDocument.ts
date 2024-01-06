@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import { Document, Packer, PageBreak, Paragraph, TextRun } from 'docx';
 import { getTranslation } from './translateText';
 import WordDocPage from './types/wordDocPage';
+import { clearTmpFile } from './clearTmpFile';
 
 const buildPage = (text: string): WordDocPage => {
   const section = {
@@ -35,10 +36,6 @@ const createWordDoc = (sections: WordDocPage[], fileName: string): { translation
   return { translationFileName };
 };
 
-const clearUploadedFile = (uploadFilePath: string): void => {
-  fs.unlinkSync(uploadFilePath);
-};
-
 export const createTranslatedDocument = async (uploadFileName: string, start = 1, end?: number): Promise<{ translationFileName: string }> => {
   const uploadFilePath = `tmp/uploaded/${uploadFileName}`;
   const translatedText = await getTranslation(uploadFilePath, start, end);
@@ -47,6 +44,6 @@ export const createTranslatedDocument = async (uploadFileName: string, start = 1
     return page;
   });
   const translationFileName = createWordDoc(wordDocPages, uploadFileName);
-  clearUploadedFile(uploadFilePath);
+  clearTmpFile(uploadFilePath);
   return translationFileName;
 };

@@ -2,6 +2,8 @@ import express from 'express';
 import fileupload from 'express-fileupload';
 import { uploadFile } from './uploadFile';
 import { createTranslatedDocument } from './createTranslatedDocument';
+import { exportTranslationDoc } from './exportTranslationDoc';
+import { clearTmpFile } from './clearTmpFile';
 
 const app = express();
 const port = 3000;
@@ -23,9 +25,9 @@ app.post('/upload', (req, res) => {
 });
 
 app.post('/translate', async (req, res) => {
-  const { uploadFileName } = req.body;
+  const uploadFileName = req.body?.uploadFileName;
   if (!uploadFileName) {
-    return res.status(400).send('Error: No file name specified');
+    return res.status(400).send('Error: No uploadFileName specified');
   }
   const start = req.body?.start;
   const end = req.body?.end;
@@ -37,7 +39,23 @@ app.post('/translate', async (req, res) => {
   }
 });
 
-// TODO: Add a download route to send the word document back to the frontend
+app.get('/download/:translationFileName', (req, res) => {
+  const translationFileName = req.params?.translationFileName;
+  if (!translationFileName) {
+    return res.status(400).send('Error: No translationFileName specified');
+  }
+  const { options } = exportTranslationDoc();
+  try {
+    return res.sendFile(translationFileName, options, (e) => {
+      if (e) {
+        throw new Error (`${e}`);
+      }
+      clearTmpFile(`${options.root}/${translationFileName}`);
+    });
+  } catch (e) {
+    return res.status(500).send(e);
+  }
+});
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

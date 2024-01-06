@@ -18,11 +18,10 @@ This app will allow a user to upload a document written in one language and down
 - `export GOOGLE_APPLICATION_CREDENTIALS="{path_to_key}"`
 4. Install this project's dependencies
 - `npm i`
-5. Run the express server locally
+5. Run the server locally without needing to compile to js
 - `npx tsx app.ts`
 
 # TO DO Still:
-- Integrate a db to store the pdfs and translations so I can work with them without having to make new API calls (i.e., prevent GCP charges)
 - Add ability to translate from a word document as well as pdf
-- Add a frontend with ability to upload a document, display the translated pages, and download the exported word doc translation
+- Add a frontend that lets a user upload a document via a form, displays the translated page count, lets the user select the start and end page with num picker, and lets the user download the translated word doc
 - Add unit tests
