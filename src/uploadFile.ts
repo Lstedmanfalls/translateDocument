@@ -1,12 +1,11 @@
 import fileupload from 'express-fileupload';
 import { getPath } from './helpers/getPath';
+import { getNewFileName } from './helpers/getNewFileName';
 
-export const uploadFile = (file: fileupload.UploadedFile): { uploadFileName: string } => {
-  const date = Date.now();
-  const fileNameSplitExt = file.name.split('.');
-  const uploadFileName = `${fileNameSplitExt[0]}_${date}.${fileNameSplitExt[1]}`;
+export const uploadFile = (uploadedFile: fileupload.UploadedFile): { uploadFileName: string } => {
+  const uploadFileName = getNewFileName(uploadedFile.name);
   const uploadPath = getPath('uploaded', uploadFileName);
-  file.mv(uploadPath, function (e) {
+  uploadedFile.mv(uploadPath, function (e) {
     if (e) {
       return new Error(e);
     }

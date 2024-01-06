@@ -3,6 +3,7 @@ import { Document, Packer, PageBreak, Paragraph, TextRun } from 'docx';
 import { getTranslation } from './translateText';
 import WordDocPage from './types/wordDocPage';
 import { getPath } from './helpers/getPath';
+import { getNewFileName } from './helpers/getNewFileName';
 
 const buildPage = (text: string): WordDocPage => {
   const section = {
@@ -23,9 +24,7 @@ const createWordDoc = (sections: WordDocPage[], fileName: string): { translation
   const newWordDoc = new Document({
     sections,
   });
-  const date = Date.now();
-  const fileNameSplitExt = fileName.split('.');
-  const translationFileName = `${fileNameSplitExt[0]}_${date}.docx`;
+  const translationFileName = getNewFileName(fileName, 'docx');
   const translationFilePath = getPath('translated', translationFileName);
   Packer.toBuffer(newWordDoc).then((buffer) => {
     fs.writeFileSync(translationFilePath, buffer);
