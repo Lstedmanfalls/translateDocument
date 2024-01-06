@@ -39,3 +39,5 @@ export const extractPdfText = async (filePath: string, start: number, end?: numb
   await pdf.cleanup();
   return pagesText;
 };
+
+// TODO: Separate getting the pdf from extracting the content so I can get the total page numbers first and show on the frontend
