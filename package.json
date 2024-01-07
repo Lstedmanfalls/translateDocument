@@ -25,7 +25,7 @@
     "lint": "npx eslint .",
     "lint-fix": "npx eslint --fix .",
     "prepare": "husky install",
-    "test": "jest --coverage --colors"
+    "test": "jest --coverage --colors --maxWorkers=1`"
   },
   "type": "module"
 }
