@@ -22,6 +22,6 @@ This app will allow a user to upload a document written in one language and down
 - `npx tsx app.ts`
 
 # TO DO Still:
-- Add ability to translate from a word document as well as pdf
+- Add ability to translate from a word document as well
 - Add a frontend that lets a user upload a document via a form, displays the translated page count, lets the user select the start and end page with num picker, and lets the user download the translated word doc
-- Add unit tests
+- Finish writing unit tests for services
