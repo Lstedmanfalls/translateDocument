@@ -1,4 +1,4 @@
-import { PdfPageText } from './types/pdfPageData';
+import { PdfPageText } from '../types/pdfPageData';
 
 // Here do any text data transformations that need to occur prior to translation
 

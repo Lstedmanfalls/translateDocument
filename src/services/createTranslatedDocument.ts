@@ -1,9 +1,9 @@
 import fs from 'fs';
 import { Document, Packer, PageBreak, Paragraph, TextRun } from 'docx';
 import { getTranslation } from './translateText';
-import WordDocPage from './types/wordDocPage';
-import { getPath } from './helpers/getPath';
-import { getNewFileName } from './helpers/getNewFileName';
+import WordDocPage from '../types/wordDocPage';
+import { getPath } from '../helpers/getPath';
+import { getNewFileName } from '../helpers/getNewFileName';
 
 const buildPage = (text: string): WordDocPage => {
   const section = {

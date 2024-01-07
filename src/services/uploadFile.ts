@@ -1,6 +1,6 @@
 import fileupload from 'express-fileupload';
-import { getPath } from './helpers/getPath';
-import { getNewFileName } from './helpers/getNewFileName';
+import { getPath } from '../helpers/getPath';
+import { getNewFileName } from '../helpers/getNewFileName';
 
 export const uploadFile = (uploadedFile: fileupload.UploadedFile): { uploadFileName: string } => {
   const uploadFileName = getNewFileName(uploadedFile.name);

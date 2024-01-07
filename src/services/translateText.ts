@@ -1,8 +1,8 @@
 import { extractPdfText } from './extractPdfText';
 import { transformText } from './transformText';
 import { Translate } from '@google-cloud/translate/build/src/v2';
-import { PdfPageText } from './types/pdfPageData';
-import { TranslatedText } from './types/translatedTextData';
+import { PdfPageText } from '../types/pdfPageData';
+import { TranslatedText } from '../types/translatedTextData';
 
 const translateText = async (textPages: PdfPageText[], targetLang: string): Promise<{ pageNumber: number, translation: string }[]> => {
   const projectId = process.env.PROJECT_ID;

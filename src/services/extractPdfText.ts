@@ -1,5 +1,5 @@
 import * as pdfjsDist from 'pdfjs-dist';
-import { PdfPage, PdfPageText } from './types/pdfPageData';
+import { PdfPage, PdfPageText } from '../types/pdfPageData';
 
 const getPdf = (filePath: string): Promise<pdfjsDist.PDFDocumentProxy> => {
   const pdfFilePath = filePath;
