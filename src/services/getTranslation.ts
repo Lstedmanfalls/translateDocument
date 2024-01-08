@@ -6,6 +6,9 @@ import { TranslatedText } from '../types/translatedTextData';
 
 const translateText = async (textPages: PdfPageText[], targetLang: string): Promise<{ pageNumber: number, translation: string }[]> => {
   const projectId = process.env.PROJECT_ID;
+  if (!projectId) {
+    throw new Error('PROJECT_ID env variable not set');
+  }
   const translator = new Translate({ projectId });
   const translatedText = textPages.map(async (textObject) => {
     const pageNumber = textObject.pageNumber;

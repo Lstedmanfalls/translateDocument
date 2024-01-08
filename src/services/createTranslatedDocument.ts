@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { Document, Packer, PageBreak, Paragraph, TextRun } from 'docx';
-import { getTranslation } from './translateText';
+import { getTranslation } from './getTranslation';
 import WordDocPage from '../types/wordDocPage';
 import { getPath } from '../helpers/getPath';
 import { getNewFileName } from '../helpers/getNewFileName';

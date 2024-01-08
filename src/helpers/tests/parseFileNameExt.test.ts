@@ -1,4 +1,4 @@
-import { parseFileNameExt } from './parseFileNameExt';
+import { parseFileNameExt } from '../parseFileNameExt';
 
 test('parseFileNameExt splits file name from extension', () => {
   const originalFileName = 'hello.pdf';

@@ -5,8 +5,9 @@ import { PdfPageText } from '../types/pdfPageData';
 export const transformText = (rawTextPages: PdfPageText[]): PdfPageText[] => {
   // Translation doesn't work properly for words that are allcaps
   const lowercasedTextPages = rawTextPages.map((page) => {
-    const pageText = page.pageText.toLowerCase();
-    const pageNumber = page.pageNumber;
+    let { pageText } = page;
+    pageText = pageText.toLowerCase();
+    const { pageNumber } = page;
     return { pageNumber, pageText };
   });
   return lowercasedTextPages;

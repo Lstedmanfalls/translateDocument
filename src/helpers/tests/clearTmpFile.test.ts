@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { clearTmpFile } from './clearTmpFile';
+import { clearTmpFile } from '../clearTmpFile';
 
 jest.mock('fs');
 test('clearTmpFile should error if file does not exist', () => {

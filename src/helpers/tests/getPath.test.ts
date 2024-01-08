@@ -1,4 +1,4 @@
-import { getPath } from './getPath';
+import { getPath } from '../getPath';
 import fs from 'fs';
 
 jest.mock('fs');

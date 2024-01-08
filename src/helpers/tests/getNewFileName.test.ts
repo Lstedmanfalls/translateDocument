@@ -1,4 +1,4 @@
-import { getNewFileName } from './getNewFileName';
+import { getNewFileName } from '../getNewFileName';
 
 Date.now = jest.fn(() => 13);
 
