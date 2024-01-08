@@ -9,6 +9,6 @@ test('clearTmpFile should error if file does not exist', () => {
 
 test('clearTmpFile should not error if file exists', () => {
   (fs.existsSync as jest.Mock).mockReturnValue(true);
-  (fs.unlinkSync as jest.Mock).mockReturnValue(true);
+  (fs.unlinkSync as jest.Mock).mockReturnValue(undefined);
   expect(clearTmpFile('testFilePath.pdf')).toBeUndefined();
 });
